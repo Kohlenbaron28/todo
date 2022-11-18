@@ -8,19 +8,15 @@ export default function AddTodo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (title !== "") {
+    if (title !== "" && about !== "") {
       await addDoc(collection(db, "todos"), {
         title,
+        about,
         completed: false,
       });
       setTitle("");
-    } else if (about !== "") {
-        await addDoc(collection(db, "todos"), {
-            about,
-            completed: false,
-          });
-          setAbout("");
-    }
+      setAbout("");
+    } 
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -37,6 +33,7 @@ export default function AddTodo() {
           value={about}
           onChange={(e) => setAbout(e.target.value)}
         />
+        <input type="file" />
       </div>
       <div className="btn_container">
         <button>Add</button>

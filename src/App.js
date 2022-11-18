@@ -29,7 +29,7 @@ function App() {
     }, []);
   
     const handleEdit = async (todo, title, about) => {
-      await updateDoc(doc(db, "todos", todo.id), { title: title, });
+      await updateDoc(doc(db, "todos", todo.id), { title: title, about: about});
     };
     const toggleComplete = async (todo) => {
       await updateDoc(doc(db, "todos", todo.id), { completed: !todo.completed });

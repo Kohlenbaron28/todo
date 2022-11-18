@@ -7,18 +7,23 @@ export default function Todo({ todo, toggleComplete, handleDelete, handleEdit,})
   const [newTitle, setNewTitle] = React.useState(todo.title);
   const [newAbout, setNewAbout] = React.useState(todo.about);
 
-  const handleChange =  (e) => {
+  const handleChangeTitle =  (e) => {
     e.preventDefault();
     if (todo.complete === true) {
       setNewTitle(todo.title);  
-      setNewAbout(todo.about);
     } else {
       todo.title = "";
-      todo.about = "";
       setNewTitle(e.target.value); 
-      setNewAbout(e.target.value);
-    }
-
+    }   
+  };
+  const handleChangeAbout =  (e) => {
+    e.preventDefault();
+    if (todo.complete === true) {
+      setNewAbout(todo.about);  
+    } else {
+      todo.about = "";
+      setNewAbout(e.target.value); 
+    }   
   };
   return (
     <div className="todo">
@@ -27,14 +32,14 @@ export default function Todo({ todo, toggleComplete, handleDelete, handleEdit,})
         type="text"
         value={todo.title === "" ? newTitle : todo.title}
         className="list"
-        onChange={handleChange}
+        onChange={handleChangeTitle}
       />
           <input
         style={{ textDecoration: todo.completed && "line-through" }}
         type="text"
         value={todo.about === "" ? newAbout : todo.about}
-        className="list"
-        onChange={handleChange}
+        className="list-about"
+        onChange={handleChangeAbout}
       />
       <div>
         <button
@@ -45,7 +50,7 @@ export default function Todo({ todo, toggleComplete, handleDelete, handleEdit,})
         </button>
         <button
           className="button-edit"
-          onClick={() => handleEdit(todo, newTitle)}
+          onClick={() => handleEdit(todo, newTitle, newAbout)}
         >
           <EditIcon id="i" />
         </button>
