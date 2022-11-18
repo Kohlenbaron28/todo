@@ -6,6 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export default function Todo({ todo, toggleComplete, handleDelete, handleEdit,}) {
   const [newTitle, setNewTitle] = React.useState(todo.title);
   const [newAbout, setNewAbout] = React.useState(todo.about);
+  const [newFile, setNewFile] = React.useState(todo.setFile); 
 
   const handleChangeTitle =  (e) => {
     e.preventDefault();
@@ -16,7 +17,7 @@ export default function Todo({ todo, toggleComplete, handleDelete, handleEdit,})
       setNewTitle(e.target.value); 
     }   
   };
-  const handleChangeAbout =  (e) => {
+  const handleChangeAbout = (e) => {
     e.preventDefault();
     if (todo.complete === true) {
       setNewAbout(todo.about);  
@@ -25,6 +26,7 @@ export default function Todo({ todo, toggleComplete, handleDelete, handleEdit,})
       setNewAbout(e.target.value); 
     }   
   };
+
   return (
     <div className="todo">
       <input
@@ -42,6 +44,7 @@ export default function Todo({ todo, toggleComplete, handleDelete, handleEdit,})
         onChange={handleChangeAbout}
       />
       <div>
+        <input type="file"/>
         <button
           className="button-complete"
           onClick={() => toggleComplete(todo)}

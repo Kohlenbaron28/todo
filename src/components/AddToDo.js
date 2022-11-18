@@ -5,6 +5,8 @@ import { collection, addDoc } from "firebase/firestore";
 export default function AddTodo() {
   const [title, setTitle] = React.useState("");
   const [about, setAbout] = React.useState("");
+  const [file, setFile] = React.useState();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +20,13 @@ export default function AddTodo() {
       setAbout("");
     } 
   };
+  const fileInput = React.createRef();
+  function handleChange(event) {
+    event.preventDefault();
+    console.log(`Selected file - ${fileInput.current.files[0].name}`);
+    setFile(fileInput.current.files[0].name);
+    console.log(setFile);
+  }
   return (
     <form onSubmit={handleSubmit}>
       <div className="input_container">
@@ -33,7 +42,12 @@ export default function AddTodo() {
           value={about}
           onChange={(e) => setAbout(e.target.value)}
         />
-        <input type="file" />
+        <input
+         type="file"
+         ref={fileInput}
+         value={(e) => e.target.files}
+         onChange={handleChange}
+         />
       </div>
       <div className="btn_container">
         <button>Add</button>
