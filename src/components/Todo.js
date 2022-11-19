@@ -46,7 +46,7 @@ export default function Todo({ todo, toggleComplete, handleDelete, handleEdit,})
       />
       <div>{todo.files}</div>
        {
-            new Date(todoDate).getTime() > currDate.getTime() ?  <div>{todoDate}</div> :  <div className="timeUp">{todoDate}</div>
+            new Date(todoDate).getTime() > currDate.getTime() ?  <div>{todoDate}</div> :  <div className="timeUp">Time is up</div>
         }
       <div>
       {console.log('todo' , new Date(todoDate).getTime())}
