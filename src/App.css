@@ -128,3 +128,9 @@ input:focus,
 button:focus {
   outline: none;
 }
+.timeUp {
+    background-color: #333;
+    color: #ddd;
+    width: 100%;
+    text-align: center;
+}

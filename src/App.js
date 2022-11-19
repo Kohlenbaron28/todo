@@ -15,7 +15,7 @@ import { db } from "./firebase";
 
 function App() {
     const [todos, setTodos] = React.useState([]);
-  
+
     React.useEffect(() => {
       const q = query(collection(db, "todos"));
       const unsub = onSnapshot(q, (querySnapshot) => {

@@ -1,32 +1,38 @@
-import React from "react";
+import React, { useRef } from "react";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 export default function AddTodo() {
   const [title, setTitle] = React.useState("");
   const [about, setAbout] = React.useState("");
-  const [file, setFile] = React.useState();
-
-
+  const [date, setDate] = React.useState("");
+  const [files, setFiles] = React.useState();
+  const fileInput = React.useRef(null);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (title !== "" && about !== "") {
-      await addDoc(collection(db, "todos"), {
+        await addDoc(collection(db, "todos"), {
         title,
         about,
         completed: false,
-      });
+        files,
+        date
+      })
       setTitle("");
       setAbout("");
-    } 
+      setDate("");
+      fileInput.current.value = null; // очищаем input от файлов
+    }
   };
-  const fileInput = React.createRef();
-  function handleChange(event) {
-    event.preventDefault();
-    console.log(`Selected file - ${fileInput.current.files[0].name}`);
-    setFile(fileInput.current.files[0].name);
-    console.log(setFile);
+  const handleChange = ({target}) => {
+    const fileNames  = Array.from(target.files).map(file => file.name)
+    console.log(`Selected files - ${fileNames.join(', ')}`);
+    setFiles(fileNames);
   }
+
+
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="input_container">
@@ -42,16 +48,17 @@ export default function AddTodo() {
           value={about}
           onChange={(e) => setAbout(e.target.value)}
         />
-        <input
+       <input
          type="file"
+         multiple={true}
          ref={fileInput}
-         value={(e) => e.target.files}
          onChange={handleChange}
          />
+         <input type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
       </div>
       <div className="btn_container">
         <button>Add</button>
       </div>
     </form>
   );
-}
+} 
